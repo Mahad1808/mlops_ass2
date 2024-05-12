@@ -1,7 +1,7 @@
 from datetime import datetime
-from dags.scripts import extract as extract_data
-from dags.scripts import transform as transform_data
-from dags.scripts import store as store_data
+from scripts.extract import extract_data
+from scripts.transform import preprocess_text
+from scripts.store import store_data
 
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
@@ -26,7 +26,7 @@ extract_task = PythonOperator(
 
 transform_task = PythonOperator(
     task_id="transform_data",
-    python_callable=transform_data,
+    python_callable=preprocess_text,
     dag=dag,
 )
 
